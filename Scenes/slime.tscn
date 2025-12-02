@@ -1,7 +1,39 @@
-[gd_scene load_steps=18 format=3 uid="uid://b45nfa5fhaxly"]
+[gd_scene load_steps=26 format=3 uid="uid://b45nfa5fhaxly"]
 
 [ext_resource type="Script" uid="uid://b30yg7seug8tq" path="res://Scripts/slime.gd" id="1_swwnm"]
 [ext_resource type="Texture2D" uid="uid://cj75k37xb06e3" path="res://Art_Forest/sprites/characters/slime.png" id="2_aiwxb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_swwnm"]
+atlas = ExtResource("2_aiwxb")
+region = Rect2(0, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aiwxb"]
+atlas = ExtResource("2_aiwxb")
+region = Rect2(32, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xq7bh"]
+atlas = ExtResource("2_aiwxb")
+region = Rect2(64, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_10642"]
+atlas = ExtResource("2_aiwxb")
+region = Rect2(96, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uu7bc"]
+atlas = ExtResource("2_aiwxb")
+region = Rect2(128, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqvs5"]
+atlas = ExtResource("2_aiwxb")
+region = Rect2(0, 352, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2bbhk"]
+atlas = ExtResource("2_aiwxb")
+region = Rect2(32, 352, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d6mpm"]
+atlas = ExtResource("2_aiwxb")
+region = Rect2(64, 352, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_paq7w"]
 atlas = ExtResource("2_aiwxb")
@@ -49,6 +81,40 @@ region = Rect2(192, 256, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xq7bh"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_swwnm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aiwxb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xq7bh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_10642")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uu7bc")
+}],
+"loop": false,
+"name": &"death",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqvs5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2bbhk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d6mpm")
+}],
+"loop": false,
+"name": &"get_fucked",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_paq7w")
@@ -109,9 +175,8 @@ script = ExtResource("1_swwnm")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_xq7bh")
-animation = &"idle"
+animation = &"get_fucked"
 autoplay = "idle"
-frame_progress = 0.06515151
 offset = Vector2(0, -4)
 
 [node name="detection" type="Area2D" parent="."]
@@ -134,6 +199,17 @@ shape = SubResource("CircleShape2D_swwnm")
 [node name="take_damm_cooldown" type="Timer" parent="."]
 wait_time = 0.5
 
+[node name="healthbar" type="ProgressBar" parent="."]
+modulate = Color(4.1392445e-06, 0.6335172, 0.2790489, 1)
+offset_left = -7.0000005
+offset_top = 4.0
+offset_right = 132.99998
+offset_bottom = 31.0
+scale = Vector2(0.1, 0.1)
+max_value = 50.0
+show_percentage = false
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="detection" to="." method="_on_detection_body_entered"]
 [connection signal="body_exited" from="detection" to="." method="_on_detection_body_exited"]
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
