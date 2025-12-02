@@ -1,43 +1,109 @@
 extends CharacterBody2D
 
-# --- Movement Parameters ---
-@export var speed: float = 100.0        # Maximum movement speed (pixels/sec)
-@export var acceleration: float = 1000.0 # How fast the character accelerates (no longer used for input)
-@export var friction: float = 1200.0     # How fast the character slows when idle
+# ================================
+#        PLAYER VARIABLES
+# ================================
 
-# --- Node References ---
+# Enemy is close enough to hit the player
+var enemy_range = false
+
+# Controls the enemy's hit cooldown so it can't hit every frame
+var enemy_attack_cooldown = true
+
+# Player health
+var health = 100
+
+# Used to check if the player is alive or dead
+var player_alive = true
+
+# --- Attack Variables ---
+# Is the player currently attacking? (attack in progress)
+var attack_ip = false
+
+
+# ================================
+#       MOVEMENT PARAMETERS
+# ================================
+
+@export var speed: float = 100.0        # Movement speed
+@export var acceleration: float = 1000.0 # Acceleration (not used directly)
+@export var friction: float = 1200.0     # How fast the player slows down
+
+
+# ================================
+#         NODE REFERENCES
+# ================================
+
+# Reference to the sprite animation node
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 
-# --- State Variables ---
-var last_direction := Vector2.DOWN      # Last significant movement direction for idle
-var current_animation := ""             # Currently playing animation
+
+# ================================
+#         STATE VARIABLES
+# ================================
+
+# Stores last direction moved (used for idle facing direction)
+var last_direction := Vector2.DOWN
+
+# Tracks the current playing animation to avoid replaying the same
+var current_animation := ""
+
+
+# ================================
+#            MAIN PROCESS
+# ================================
+
 func _process(delta):
-	var fps = Engine.get_frames_per_second()
-	print(fps)
+	# Kill player when health hits 0
+	if health <= 0:
+		player_alive = false
+		health = 0
+		print("morte")
+		self.queue_free()
+
+
 func _physics_process(delta):
+	attack()
+	# Read movement input
 	var input_direction = Input.get_vector("left", "right", "up", "down")
-	
+
+	# Check if enemy is allowed to attack player
+	enemy_attack()
+
+	# Move the player
 	if input_direction != Vector2.ZERO:
-		# Set velocity instantly to full speed in the input direction
+		# Apply movement instantly (no slow acceleration)
 		velocity = input_direction.normalized() * speed
+
+		# Save movement direction for idle facing
 		last_direction = input_direction
 	else:
-		# Smooth deceleration when idle
+		# Smoothly slow down when no input
 		velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
-	
-	# Move the character
+
+	# Apply movement using CharacterBody2D physics
 	move_and_slide()
-	
-	# Update animation and sprite orientation
+
+	# Update animations and flip direction
 	_update_animation()
 	_update_sprite_flip()
 
-# --- Animation Handling ---
+
+# ================================
+#        ANIMATION SYSTEM
+# ================================
+
 func _update_animation():
-	var anim_to_play = ""
+	# Do NOT change animation if attacking
+	if attack_ip:
+		return
 	
-	if velocity.length() < 5.0: # Idle state threshold
-		# Decide which idle animation based on last direction
+	
+	var anim_to_play = ""
+
+	# Check if player is idle
+	if velocity.length() < 5.0:
+		# Choose idle animation based on last direction faced
 		if facing_front():
 			anim_to_play = "idle_front"
 		elif facing_back():
@@ -45,28 +111,107 @@ func _update_animation():
 		else:
 			anim_to_play = "idle_side"
 	else:
-		# Decide which run animation based on movement direction
+		# Player is walking/running
 		var dir = velocity.normalized()
+
+		# Vertical animations (up/down)
 		if abs(dir.y) > abs(dir.x):
 			anim_to_play = "run_front" if dir.y > 0 else "run_back"
 		else:
+			# Horizontal animation
 			anim_to_play = "run_side"
-	
-	# Only change animation if different to prevent flicker
+
+	# Only switch animations when necessary
 	if anim_to_play != current_animation:
 		anim.play(anim_to_play)
 		current_animation = anim_to_play
 
-# --- Sprite Flipping ---
+
+# ================================
+#     SPRITE FLIP SYSTEM
+# ================================
+
 func _update_sprite_flip():
-	# Only flip side animations horizontally
+	# Only flip left/right animations, not front/back
 	if anim.animation.ends_with("side"):
 		anim.flip_h = last_direction.x < 0
 
-# --- Helper Functions ---
+
+# ================================
+#        HELPER FUNCTIONS
+# ================================
+
+# Facing down
 func facing_front() -> bool:
 	return abs(last_direction.y) >= abs(last_direction.x) and last_direction.y > 0
 
+# Facing up
 func facing_back() -> bool:
 	return abs(last_direction.y) >= abs(last_direction.x) and last_direction.y < 0
+
+
+# ================================
+#          HITBOX LOGIC
+# ================================
+
+# When an enemy enters the hitbox
+func _on_hitbox_body_entered(body):
+	if body.has_method("enemy"):
+		# Enemy close enough to hit player
+		enemy_range = true
+func player():
+	pass
+
+# When enemy leaves hitbox
+func _on_hitbox_body_exited(body):
+	if body.has_method("enemy"):
+		# Enemy too far to attack
+		enemy_range = false
+
+
+# ================================
+#         ENEMY ATTACK SYSTEM
+# ================================
+
+func enemy_attack():
+	# Enemy can hit only if:
+	# - inside range
+	# - cooldown is finished
+	if enemy_range and enemy_attack_cooldown:
+		health -= 10
+		enemy_attack_cooldown = false
+
+		# Start cooldown timer 
+		$ene_att_cooldown.start()
+
+		print("i am in", health)
+
+# Reset attack cooldown when timer ends
+func _on_ene_att_cooldown_timeout() -> void:
+	enemy_attack_cooldown = true
 	
+func attack():
+	if Input.is_action_just_pressed("attack"):
+
+		attack_ip = true
+		Global.player_curr_att = true
+
+		# Connect signal BEFORE playing animation
+		anim.connect("animation_finished", Callable(self, "_on_attack_animation_finished"), CONNECT_ONE_SHOT)
+
+		# Play animation
+		if facing_front():
+			anim.play("attack_front")
+		elif facing_back():
+			anim.play("attack_back")
+		else:
+			anim.play("attack_side")
+
+# ================================
+#         ATTACK CALLBACK
+# ================================
+
+func _on_attack_animation_finished():
+	attack_ip = false
+	Global.player_curr_att = false
+	_update_animation()
