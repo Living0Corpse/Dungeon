@@ -64,6 +64,7 @@ func _process(delta):
 
 func _physics_process(delta):
 	attack()
+	health_update()
 	# Read movement input
 	var input_direction = Input.get_vector("left", "right", "up", "down")
 
@@ -215,3 +216,14 @@ func _on_attack_animation_finished():
 	attack_ip = false
 	Global.player_curr_att = false
 	_update_animation()
+	
+func health_update():
+	var healthbar = $healthbar
+	healthbar.value = health
+	
+
+func _on_health_regen_timeout() -> void:
+	if health < 100:
+		health += 10
+	elif health == 100:
+		pass

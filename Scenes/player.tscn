@@ -391,7 +391,6 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6t5aa"]
-radius = 11.0
 
 [node name="player" type="CharacterBody2D"]
 y_sort_enabled = true
@@ -410,22 +409,39 @@ animation = &"attack_back"
 offset = Vector2(0, -15)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position_smoothing_enabled = true
+limit_left = -383
+limit_top = 63
+limit_right = 367
+limit_bottom = 400
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
 
 [node name="hitbox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
-position = Vector2(0, -7)
+position = Vector2(1, -6)
 shape = SubResource("CircleShape2D_6t5aa")
 
 [node name="ene_att_cooldown" type="Timer" parent="."]
 wait_time = 0.5
 
-[node name="attack_cooldown" type="Timer" parent="."]
-wait_time = 0.5
-one_shot = true
+[node name="player_att_cooldown" type="Timer" parent="."]
+
+[node name="healthbar" type="ProgressBar" parent="."]
+modulate = Color(0.47718072, 0, 0.05407516, 1)
+offset_left = -8.0
+offset_top = -21.0
+offset_right = 1599992.1
+offset_bottom = 299979.25
+scale = Vector2(1e-05, 1e-05)
+show_percentage = false
+
+[node name="health_regen" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
 
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_exited" from="hitbox" to="." method="_on_hitbox_body_exited"]
 [connection signal="timeout" from="ene_att_cooldown" to="." method="_on_ene_att_cooldown_timeout"]
-[connection signal="timeout" from="attack_cooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="timeout" from="player_att_cooldown" to="." method="_on_player_att_cooldown_timeout"]
+[connection signal="timeout" from="health_regen" to="." method="_on_health_regen_timeout"]
