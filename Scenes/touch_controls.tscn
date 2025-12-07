@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjbtmcua4fi6o"]
+
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="1_poon4"]
+
+[node name="CanvasLayer2" type="CanvasLayer"]
+
+[node name="Virtual Joystick" parent="." instance=ExtResource("1_poon4")]
+anchors_preset = -1
+anchor_left = 0.07465277
+anchor_top = 0.787037
+anchor_right = 0.11006943
+anchor_bottom = 0.84481484
+offset_top = 0.0
+offset_right = 163.20001
+offset_bottom = 149.76001
+scale = Vector2(0.2, 0.2)
+pressed_color = Color(0, 0, 0, 1)
+clampzone_size = 200.0
+joystick_mode = 1
+action_left = "left"
+action_right = "right"
+action_up = "up"
+action_down = "down"
+metadata/_edit_use_anchors_ = true

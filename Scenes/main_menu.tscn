@@ -1,0 +1,130 @@
+[gd_scene load_steps=16 format=3 uid="uid://da8vk1qjwvyx0"]
+
+[ext_resource type="Script" uid="uid://cdpk0po2krmr4" path="res://Scripts/main_menu.gd" id="1_1ehe0"]
+[ext_resource type="FontFile" uid="uid://lgonavu6dp4m" path="res://KiwiSoda.ttf" id="1_28flt"]
+[ext_resource type="Texture2D" uid="uid://cqt6a3mabh8iw" path="res://art/menu_backround.jpg" id="1_48xlc"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1ehe0"]
+texture = ExtResource("1_48xlc")
+
+[sub_resource type="Theme" id="Theme_48xlc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_48xlc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1ehe0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ce3w2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n45e2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_opfnp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cp0ys"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yhxw7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_trj04"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_16hvj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vr1f0"]
+
+[node name="main_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1ehe0")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_1ehe0")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -61.0
+offset_top = -101.0
+offset_right = 61.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="New_Game" type="Button" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_48xlc")
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_pressed_color = Color(0.67206407, 0.67206407, 0.67206407, 1)
+theme_override_colors/font_hover_color = Color(0.8862616, 0.8862614, 0.8862619, 1)
+theme_override_fonts/font = ExtResource("1_28flt")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_48xlc")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_1ehe0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ce3w2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_n45e2")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_opfnp")
+text = "New Game"
+
+[node name="Options" type="Button" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_48xlc")
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_pressed_color = Color(0.67206407, 0.67206407, 0.67206407, 1)
+theme_override_colors/font_hover_color = Color(0.8862616, 0.8862614, 0.8862619, 1)
+theme_override_fonts/font = ExtResource("1_28flt")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_cp0ys")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_yhxw7")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_trj04")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_16hvj")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vr1f0")
+text = "Options"
+
+[node name="Exit" type="Button" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_48xlc")
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_pressed_color = Color(0.67206407, 0.67206407, 0.67206407, 1)
+theme_override_colors/font_hover_color = Color(0.8862616, 0.8862614, 0.8862619, 1)
+theme_override_fonts/font = ExtResource("1_28flt")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_cp0ys")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_yhxw7")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_trj04")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_16hvj")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vr1f0")
+text = "Exit"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -86.0
+offset_top = 42.0
+offset_right = 86.0
+offset_bottom = 93.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.44705883, 0.13725491, 0.13725491, 1)
+theme_override_fonts/font = ExtResource("1_28flt")
+theme_override_font_sizes/font_size = 50
+text = "Dungeon"
+
+[connection signal="pressed" from="GridContainer/New_Game" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="GridContainer/Exit" to="." method="_on_exist_pressed"]

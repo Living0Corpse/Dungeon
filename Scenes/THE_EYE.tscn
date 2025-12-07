@@ -1,0 +1,86 @@
+[gd_scene load_steps=12 format=3 uid="uid://cxmav8qfhdi2i"]
+
+[ext_resource type="Script" uid="uid://dt8lclfftmq2a" path="res://character_body_2d.gd" id="1_bh2l4"]
+[ext_resource type="Texture2D" uid="uid://blrn6kbjuxgph" path="res://art/the eye.png" id="2_ib11q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1jd0w"]
+atlas = ExtResource("2_ib11q")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v582p"]
+atlas = ExtResource("2_ib11q")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ohnb1"]
+atlas = ExtResource("2_ib11q")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_igu6t"]
+atlas = ExtResource("2_ib11q")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_542hy"]
+atlas = ExtResource("2_ib11q")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_463tx"]
+atlas = ExtResource("2_ib11q")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pncjj"]
+atlas = ExtResource("2_ib11q")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b8f04"]
+atlas = ExtResource("2_ib11q")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_768t0"]
+animations = [{
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_1jd0w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v582p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ohnb1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_igu6t")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_542hy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_463tx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pncjj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b8f04")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_1jd0w")
+}],
+"loop": false,
+"name": &"blink",
+"speed": 7.0
+}]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+y_sort_enabled = true
+script = ExtResource("1_bh2l4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_768t0")
+animation = &"blink"
+frame = 8
+frame_progress = 1.0
+
+[node name="blink" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="timeout" from="blink" to="." method="_on_blink_timeout"]

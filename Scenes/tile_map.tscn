@@ -1,9 +1,9 @@
 [gd_scene load_steps=10 format=3 uid="uid://dm0wqahlm38j5"]
 
-[ext_resource type="Texture2D" uid="uid://lyuo3k65bdci" path="res://Art_Forest/sprites/tilesets/fences.png" id="1_0v1hq"]
-[ext_resource type="Texture2D" uid="uid://cw7n5aa2wv83i" path="res://Art_Forest/sprites/objects/objects.png" id="1_drmie"]
-[ext_resource type="Texture2D" uid="uid://2v2tt08y0f1n" path="res://Art_Forest/sprites/tilesets/plains.png" id="2_ljphf"]
-[ext_resource type="Texture2D" uid="uid://bb5ao11fywk12" path="res://Art_Forest/sprites/tilesets/grass.png" id="7_u54mp"]
+[ext_resource type="Texture2D" uid="uid://lyuo3k65bdci" path="res://art/Art_Forest/sprites/tilesets/fences.png" id="1_0v1hq"]
+[ext_resource type="Texture2D" uid="uid://cw7n5aa2wv83i" path="res://art/Art_Forest/sprites/objects/objects.png" id="1_drmie"]
+[ext_resource type="Texture2D" uid="uid://2v2tt08y0f1n" path="res://art/Art_Forest/sprites/tilesets/plains.png" id="2_ljphf"]
+[ext_resource type="Texture2D" uid="uid://bb5ao11fywk12" path="res://art/Art_Forest/sprites/tilesets/grass.png" id="7_u54mp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xsk5a"]
 texture = ExtResource("1_0v1hq")

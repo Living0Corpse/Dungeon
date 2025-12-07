@@ -1,0 +1,83 @@
+[gd_scene load_steps=11 format=3 uid="uid://63a0ap4iena"]
+
+[ext_resource type="Script" uid="uid://brpe2sg64opl" path="res://Scripts/death_screen.gd" id="1_rwas2"]
+[ext_resource type="FontFile" uid="uid://lgonavu6dp4m" path="res://KiwiSoda.ttf" id="2_tseak"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_amiou"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vb6s7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tpvs2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rwas2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l3qio"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tseak"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dmfwj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r1r1s"]
+
+[node name="Death_Screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rwas2")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Restart" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_focus_color = Color(0.8575007, 0.8575007, 0.8575014, 1)
+theme_override_colors/font_pressed_color = Color(0.64466345, 0.64466345, 0.64466345, 1)
+theme_override_colors/font_hover_color = Color(0.55828655, 0.5582864, 0.5582875, 1)
+theme_override_fonts/font = ExtResource("2_tseak")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_amiou")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_vb6s7")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_tpvs2")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_rwas2")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_l3qio")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_tseak")
+text = "RESTART"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.5882353, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_tseak")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_dmfwj")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_r1r1s")
+text = "YOU ARE DEAD"
+
+[connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]
