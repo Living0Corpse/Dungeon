@@ -53,18 +53,16 @@ var current_animation := ""
 #            MAIN PROCESS
 # ================================
 
-func _process(delta):
-	# Kill player when health hits 0
-	if health <= 0:
-		player_alive = false
-		health = 0
-		print("morte")
-		self.queue_free()
+
+	
 
 
 func _physics_process(delta):
+	kill()
 	attack()
 	health_update()
+	if not player_alive:
+		return
 	# Read movement input
 	var input_direction = Input.get_vector("left", "right", "up", "down")
 
@@ -181,6 +179,7 @@ func enemy_attack():
 	if enemy_range and enemy_attack_cooldown:
 		health -= 10
 		enemy_attack_cooldown = false
+		
 
 		# Start cooldown timer 
 		$ene_att_cooldown.start()
@@ -193,6 +192,7 @@ func _on_ene_att_cooldown_timeout() -> void:
 	
 func attack():
 	if Input.is_action_just_pressed("attack"):
+		$attack.play()
 
 		attack_ip = true
 		Global.player_curr_att = true
@@ -227,3 +227,13 @@ func _on_health_regen_timeout() -> void:
 		health += 10
 	elif health == 100:
 		pass
+
+func kill():
+	# Kill player when health hits 0
+	if health <= 0:
+		player_alive = false
+		health = 0
+		print("morte")
+		$AnimatedSprite2D.play("death")
+		await $AnimatedSprite2D.animation_finished
+		get_tree().call_deferred("change_scene_to_file", "res://Scenes/death_screen.tscn")

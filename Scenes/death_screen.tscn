@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://63a0ap4iena"]
+[gd_scene load_steps=12 format=3 uid="uid://63a0ap4iena"]
 
 [ext_resource type="Script" uid="uid://brpe2sg64opl" path="res://Scripts/death_screen.gd" id="1_rwas2"]
 [ext_resource type="FontFile" uid="uid://lgonavu6dp4m" path="res://KiwiSoda.ttf" id="2_tseak"]
+[ext_resource type="AudioStream" uid="uid://sypggs5xvp4t" path="res://SfX/Menu Selection Click.wav" id="3_tseak"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_amiou"]
 
@@ -80,4 +81,8 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_dmfwj")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_r1r1s")
 text = "YOU ARE DEAD"
 
+[node name="click" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_tseak")
+
+[connection signal="mouse_entered" from="Restart" to="." method="_on_restart_mouse_entered"]
 [connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]

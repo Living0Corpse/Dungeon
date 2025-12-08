@@ -1,4 +1,8 @@
-[gd_resource type="AudioBusLayout" format=3 uid="uid://cnxpejfyaq46b"]
+[gd_resource type="AudioBusLayout" load_steps=2 format=3 uid="uid://cnxpejfyaq46b"]
+
+[sub_resource type="AudioEffectAmplify" id="AudioEffectAmplify_j3pel"]
+resource_name = "Amplify"
+volume_db = -10.0
 
 [resource]
 bus/1/name = &"Music"
@@ -7,3 +11,5 @@ bus/1/mute = false
 bus/1/bypass_fx = false
 bus/1/volume_db = 0.0
 bus/1/send = &"Master"
+bus/1/effect/0/effect = SubResource("AudioEffectAmplify_j3pel")
+bus/1/effect/0/enabled = true

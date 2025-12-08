@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://bueo3wit2pfgq"]
+[gd_scene load_steps=16 format=3 uid="uid://bueo3wit2pfgq"]
 
 [ext_resource type="Script" uid="uid://daxf747gw1daf" path="res://Scripts/pause_menu.gd" id="1_1och7"]
 [ext_resource type="Shader" uid="uid://bvv10h7jpabc5" path="res://Scenes/pausemenu.gdshader" id="2_bpi0q"]
 [ext_resource type="FontFile" uid="uid://lgonavu6dp4m" path="res://KiwiSoda.ttf" id="3_vmyb1"]
+[ext_resource type="AudioStream" uid="uid://sypggs5xvp4t" path="res://SfX/Menu Selection Click.wav" id="4_bpi0q"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_myy0f"]
 shader = ExtResource("2_bpi0q")
@@ -15,6 +16,12 @@ shader_parameter/lod = 0.0
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_stj27"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ix48p"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vmyb1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_myy0f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_524vl"]
 
 [sub_resource type="Animation" id="Animation_0fi7f"]
 length = 0.3
@@ -104,6 +111,9 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxEmpty_u8tnp")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_stj27")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ix48p")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_vmyb1")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_myy0f")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_524vl")
 text = "Resume
 "
 
@@ -118,6 +128,9 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxEmpty_u8tnp")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_stj27")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ix48p")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_vmyb1")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_myy0f")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_524vl")
 text = "Main menu"
 
 [node name="Restart" type="Button" parent="PanelContainer/VBoxContainer"]
@@ -131,6 +144,9 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxEmpty_u8tnp")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_stj27")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ix48p")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_vmyb1")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_myy0f")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_524vl")
 text = "Restart"
 
 [node name="Exit" type="Button" parent="PanelContainer/VBoxContainer"]
@@ -144,6 +160,9 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxEmpty_u8tnp")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_stj27")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ix48p")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_vmyb1")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_myy0f")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_524vl")
 text = "Exit
 "
 
@@ -152,7 +171,14 @@ libraries = {
 &"": SubResource("AnimationLibrary_uscpe")
 }
 
+[node name="click" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_bpi0q")
+
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/Resume" to="." method="_on_resume_mouse_entered"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/Main_Menu" to="." method="_on_main_menu_mouse_entered"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Main_Menu" to="." method="_on_main_menu_pressed"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/Restart" to="." method="_on_restart_mouse_entered"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/Exit" to="." method="_on_exit_mouse_entered"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]

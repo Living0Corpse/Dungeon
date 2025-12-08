@@ -1,7 +1,8 @@
-[gd_scene load_steps=54 format=3 uid="uid://c8ap1wvs1vn56"]
+[gd_scene load_steps=58 format=3 uid="uid://c8ap1wvs1vn56"]
 
 [ext_resource type="Script" uid="uid://dgol4ppxirus4" path="res://Scripts/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://bjqow0fvxpfsd" path="res://Art_Forest/sprites/characters/player.png" id="2_6t5aa"]
+[ext_resource type="AudioStream" uid="uid://dg2fk78qee2iv" path="res://SfX/melee sounds/sword sound.wav" id="3_6t5aa"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cvnsp"]
 radius = 4.0
@@ -53,6 +54,18 @@ region = Rect2(96, 336, 48, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_5x828"]
 atlas = ExtResource("2_6t5aa")
 region = Rect2(144, 336, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c1k8q"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(0, 432, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e6mvm"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(48, 432, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_57lvd"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(96, 432, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vgqql"]
 atlas = ExtResource("2_6t5aa")
@@ -215,7 +228,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack_back",
-"speed": 8.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -232,7 +245,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack_front",
-"speed": 8.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -249,7 +262,21 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack_side",
-"speed": 8.0
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c1k8q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e6mvm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_57lvd")
+}],
+"loop": false,
+"name": &"death",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 0.91,
@@ -409,6 +436,7 @@ animation = &"attack_back"
 offset = Vector2(0, -15)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+limit_enabled = false
 limit_left = -383
 limit_top = 63
 limit_right = 367
@@ -439,6 +467,9 @@ show_percentage = false
 [node name="health_regen" type="Timer" parent="."]
 wait_time = 5.0
 autostart = true
+
+[node name="attack" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_6t5aa")
 
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_exited" from="hitbox" to="." method="_on_hitbox_body_exited"]

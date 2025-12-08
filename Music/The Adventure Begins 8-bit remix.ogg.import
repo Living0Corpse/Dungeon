@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c5q8y1t158jme"
+path="res://.godot/imported/The Adventure Begins 8-bit remix.ogg-5ea71b428b8e64bd9aa496127adabfcc.oggvorbisstr"
+
+[deps]
+
+source_file="res://Music/The Adventure Begins 8-bit remix.ogg"
+dest_files=["res://.godot/imported/The Adventure Begins 8-bit remix.ogg-5ea71b428b8e64bd9aa496127adabfcc.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

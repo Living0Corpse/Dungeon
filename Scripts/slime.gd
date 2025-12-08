@@ -11,15 +11,22 @@ var health = 50                   # Enemy health
 var player_in_zone := false        # Whether enemy is inside player's attack hitbox
 var can_take_damm := true          # Damage cooldown flag
 var stop_distance := 8             # NEW: distance at which the enemy stops to avoid sticking
-
+var is_alive = true
 
 # ================================
 #       PHYSICS PROCESS LOOP
 # ================================
 
 func _physics_process(delta):
+	# Handle receiving damage
 	damage_ordeal()
-	health_update()                 # Handle receiving damage
+	health_update()
+	if health <= 0:
+		is_alive = false
+		return
+					 
+
+	
 
 	if player_chase and player and can_take_damm:
 		# Direction from enemy to player
@@ -98,14 +105,14 @@ func damage_ordeal():
 		if can_take_damm:
 			health -= 20                         # Apply damage
 			can_take_damm = false                # Disable further damage
-			$AnimatedSprite2D.play("get_fucked")
 			$take_damm_cooldown.start()          # Start cooldown timer
 			print("Enemy hit!", health)
 
 			# Enemy dies
-			if health <= 0:
-				$AnimatedSprite2D.play("death")
-				queue_free()
+				
+				
+
+				
 
 
 # Cooldown timer restores ability to take damage
@@ -115,3 +122,11 @@ func _on_take_damm_cooldown_timeout() -> void:
 func health_update():
 	var healthbar = $healthbar
 	healthbar.value = health
+
+
+
+func _on_autokill_timeout() -> void:
+	if health <= 0 and is_alive == false:
+		$AnimatedSprite2D.play("death")
+		await $AnimatedSprite2D.animation_finished
+		queue_free()
