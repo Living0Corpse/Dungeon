@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://cidgaua6sixig"]
+
+[ext_resource type="Script" uid="uid://dhqxskvg2qxwi" path="res://inven/slot_inv_ui.gd" id="1_htrxk"]
+[ext_resource type="Texture2D" uid="uid://b6lxviacl3am" path="res://inven/inven_ui/inventory-slot.png" id="1_i5ddd"]
+[ext_resource type="FontFile" uid="uid://lgonavu6dp4m" path="res://KiwiSoda.ttf" id="3_bn3y1"]
+
+[node name="slot" type="Panel"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(16, 16)
+offset_right = 16.0
+offset_bottom = 16.0
+script = ExtResource("1_htrxk")
+
+[node name="InventorySlot" type="Sprite2D" parent="."]
+texture = ExtResource("1_i5ddd")
+centered = false
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="slot_texture" type="Sprite2D" parent="CenterContainer/Panel"]
+
+[node name="Label" type="Label" parent="CenterContainer/Panel"]
+layout_mode = 0
+offset_right = 14.0
+offset_bottom = 16.0
+scale = Vector2(0.5, 0.5)
+theme_override_fonts/font = ExtResource("3_bn3y1")
+text = "99"
+horizontal_alignment = 2

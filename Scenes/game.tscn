@@ -1,10 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dmmv75mtk7n0w"]
+[gd_scene load_steps=4 format=3 uid="uid://dmmv75mtk7n0w"]
 
 [ext_resource type="PackedScene" uid="uid://c8ap1wvs1vn56" path="res://Scenes/player.tscn" id="1_ebmjs"]
 [ext_resource type="PackedScene" uid="uid://dm0wqahlm38j5" path="res://Scenes/tile_map.tscn" id="2_qxrlw"]
 [ext_resource type="PackedScene" uid="uid://b45nfa5fhaxly" path="res://Scenes/slime.tscn" id="3_wrm1d"]
-[ext_resource type="PackedScene" uid="uid://bueo3wit2pfgq" path="res://Scenes/pause_menu.tscn" id="4_3dryh"]
-[ext_resource type="AudioStream" uid="uid://c5q8y1t158jme" path="res://Music/The Adventure Begins 8-bit remix.ogg" id="5_wowpa"]
 
 [node name="World" type="Node2D"]
 y_sort_enabled = true
@@ -26,26 +24,6 @@ layer_2/tile_data = PackedInt32Array(-4521984, 65536, 0, -4456448, 0, 1, -439091
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(367, 214)
-
-[node name="ui" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="CanvasLayer" type="CanvasLayer" parent="ui"]
-
-[node name="pause_menu" parent="ui/CanvasLayer" instance=ExtResource("4_3dryh")]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-
-[node name="back_mus_adven" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_wowpa")
-autoplay = true
-bus = &"Music"
 
 [node name="slime" type="Node2D" parent="."]
 y_sort_enabled = true

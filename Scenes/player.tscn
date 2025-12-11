@@ -1,8 +1,13 @@
-[gd_scene load_steps=58 format=3 uid="uid://c8ap1wvs1vn56"]
+[gd_scene load_steps=63 format=3 uid="uid://c8ap1wvs1vn56"]
 
 [ext_resource type="Script" uid="uid://dgol4ppxirus4" path="res://Scripts/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://bjqow0fvxpfsd" path="res://Art_Forest/sprites/characters/player.png" id="2_6t5aa"]
+[ext_resource type="Resource" uid="uid://pw6nqqap70fa" path="res://inven/items/player_inv.tres" id="2_fkybt"]
 [ext_resource type="AudioStream" uid="uid://dg2fk78qee2iv" path="res://SfX/melee sounds/sword sound.wav" id="3_6t5aa"]
+[ext_resource type="FontFile" uid="uid://lgonavu6dp4m" path="res://KiwiSoda.ttf" id="5_8erm5"]
+[ext_resource type="PackedScene" uid="uid://b7iehipxjedt5" path="res://Scenes/inv_ui.tscn" id="5_x3wgy"]
+[ext_resource type="PackedScene" uid="uid://bueo3wit2pfgq" path="res://Scenes/pause_menu.tscn" id="6_x3wgy"]
+[ext_resource type="AudioStream" uid="uid://c5q8y1t158jme" path="res://Music/The Adventure Begins 8-bit remix.ogg" id="7_3smsa"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cvnsp"]
 radius = 4.0
@@ -423,6 +428,7 @@ animations = [{
 y_sort_enabled = true
 collision_layer = 3
 script = ExtResource("1_cvnsp")
+inventory = ExtResource("2_fkybt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 top_level = true
@@ -441,8 +447,6 @@ limit_left = -383
 limit_top = 63
 limit_right = 367
 limit_bottom = 400
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
 
 [node name="hitbox" type="Area2D" parent="."]
 
@@ -455,21 +459,62 @@ wait_time = 0.5
 
 [node name="player_att_cooldown" type="Timer" parent="."]
 
-[node name="healthbar" type="ProgressBar" parent="."]
-modulate = Color(0.47718072, 0, 0.05407516, 1)
-offset_left = -8.0
-offset_top = -21.0
-offset_right = 1599992.1
-offset_bottom = 299979.25
-scale = Vector2(1e-05, 1e-05)
-show_percentage = false
-
 [node name="health_regen" type="Timer" parent="."]
 wait_time = 5.0
 autostart = true
 
 [node name="attack" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_6t5aa")
+
+[node name="inv_ui" parent="." instance=ExtResource("5_x3wgy")]
+z_index = 9
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -44.0
+offset_top = -86.0
+offset_right = 44.0
+offset_bottom = -23.0
+metadata/_edit_use_anchors_ = true
+
+[node name="back_mus_adven" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_3smsa")
+autoplay = true
+bus = &"Music"
+
+[node name="pause_menu" parent="." instance=ExtResource("6_x3wgy")]
+z_index = 11
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="healthbar" type="ProgressBar" parent="."]
+modulate = Color(1, 0, 0.05490196, 1)
+self_modulate = Color(1, 0, 0, 1)
+z_index = 10
+offset_left = -226.0
+offset_top = -111.79999
+offset_right = 9499774.0
+offset_bottom = 1799888.2
+scale = Vector2(1e-05, 1e-05)
+show_percentage = false
+
+[node name="healthnum" type="Label" parent="."]
+z_index = 10
+offset_left = -154.00002
+offset_top = -112.00001
+offset_right = -39.000015
+offset_bottom = -21.000008
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("5_8erm5")
+theme_override_font_sizes/font_size = 90
+text = "100"
 
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_exited" from="hitbox" to="." method="_on_hitbox_body_exited"]

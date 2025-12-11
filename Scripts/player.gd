@@ -20,6 +20,10 @@ var player_alive = true
 # Is the player currently attacking? (attack in progress)
 var attack_ip = false
 
+# --- inventory ---
+
+@export var inventory: Inv
+
 
 # ================================
 #       MOVEMENT PARAMETERS
@@ -62,6 +66,10 @@ func _physics_process(delta):
 	attack()
 	health_update()
 	if not player_alive:
+		return
+		
+	if attack_ip:
+		await $AnimatedSprite2D.animation_finished
 		return
 	# Read movement input
 	var input_direction = Input.get_vector("left", "right", "up", "down")
@@ -198,7 +206,8 @@ func attack():
 		Global.player_curr_att = true
 
 		# Connect signal BEFORE playing animation
-		anim.connect("animation_finished", Callable(self, "_on_attack_animation_finished"), CONNECT_ONE_SHOT)
+		if attack_ip:
+			anim.connect("animation_finished", Callable(self, "_on_attack_animation_finished"), CONNECT_ONE_SHOT)
 
 		# Play animation
 		if facing_front():
@@ -219,7 +228,9 @@ func _on_attack_animation_finished():
 	
 func health_update():
 	var healthbar = $healthbar
-	healthbar.value = health
+	healthbar.value = int(health)
+	var healthnum = $healthnum
+	healthnum.text = str(health)
 	
 
 func _on_health_regen_timeout() -> void:
